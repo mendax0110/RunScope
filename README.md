@@ -267,6 +267,11 @@ RunScope/
 |   |   |__ profiler_ui.hpp     # Comprehensive profiler UI
 |   |__ runscope_v2.hpp         # New unified header
 |   |__ runscope.hpp            # Legacy compatibility header
+│   |__ process_manager.hpp     # Process management
+│   |__ profile_data.hpp        # Data profiler
+│   |__ profiler.hpp            # General profiler
+│   |__ timer.hpp
+|
 |__ src/                        # Implementation files
 |   |__ core/
 |   |__ platform/
@@ -275,9 +280,13 @@ RunScope/
 |   |__ ui/
 |__ examples/                   # Example applications
 |   |__ basic_example.cpp
-|   |__ imgui_example.cpp
 |   |__ profiler_app.cpp        # New comprehensive app
-|__ tests/                      # Unit tests
+|__ tests
+    |__ CMakeLists.txt
+    |__ test_exporter.cpp
+    |__ test_process_manager.cpp
+    |__ test_profiler.cpp
+    |__ test_timer.cpp
 ```
 
 ## UI Features
