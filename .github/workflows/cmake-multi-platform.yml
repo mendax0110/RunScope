@@ -1,0 +1,35 @@
+name: RunScope Build and Tests (Multi-platform)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-13]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make dependency installer executable
+        run: chmod +x ./install_deps.sh
+
+      - name: Install dependencies
+        run: ./install_deps.sh
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+
+      - name: Build RunScope
+        run: cmake --build build --config ${BUILD_TYPE}
+
+      - name: Run tests (CTest)
+        working-directory: build
+        run: ctest -C ${BUILD_TYPE} --output-on-failure
