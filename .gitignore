@@ -1,0 +1,37 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+_codeql_build_dir/
+_codeql_detected_source_root
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Compiled files
+*.o
+*.so
+*.a
+*.dylib
+*.dll
+*.exe
+
+# Generated files
+*.log
+*.json
+*.csv
+compile_commands.json
+
+# Dependencies
+external/
+
+# Test results
+Testing/
+CTestTestfile.cmake
+
+# macOS
+.DS_Store
