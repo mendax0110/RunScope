@@ -1,52 +1,6 @@
-# RunScope - Professional C++ Profiler
+# RunScope - C++ Profiler
 
-A comprehensive, professional-grade C++20 profiler with advanced visualization capabilities using Dear ImGui. RunScope provides low-overhead performance profiling with thread-safe data collection, process attachment, statistical analysis, and an intuitive graphical interface.
-
-## Features
-
-### Core Profiling
-- **RAII-based scope profiling** with minimal overhead
-- **Thread-safe data collection** with lock-free timing
-- **Session management** with start/stop controls
-- **Nested scope tracking** with automatic depth calculation
-- **High-resolution timing** using std::chrono::high_resolution_clock
-- **Multiple profiling modes**: Instrumentation and Sampling (framework ready)
-
-### Process Management
-- **Process enumeration** for discovering running applications
-- **Process attachment** to profile external applications
-  - Linux: ptrace-based attachment
-  - macOS: task_for_pid-based attachment (requires entitlements or sudo)
-- **Real-time sampling** from attached processes
-
-### Data Analysis
-- **Statistical analysis** with function-level metrics
-- **Hot spots detection** identifying performance bottlenecks
-- **Call count tracking** and aggregation
-- **Time distribution** (min, max, average, total)
-- **Thread-level analysis** with per-thread metrics
-
-### Visualization (Dear ImGui)
-- **Live Performance Dashboard** with real-time metrics
-- **Timeline View** with zoom and pan controls
-- **Flame Graph** for hierarchical call visualization
-- **Call Tree View** showing function relationships
-- **Hot Spots Analysis** with sortable tables
-- **Thread Activity View** for multi-threaded analysis
-- **Statistics Panel** with detailed function metrics
-- **Process Selector** with filterable process list
-- **Function Details** panel with in-depth information
-
-### Export & Import
-- **JSON format** with full profile data
-- **CSV format** for spreadsheet analysis
-- **Chrome Trace format** for chrome://tracing
-- **Session save/load** (framework ready)
-
-### Cross-Platform Support
-- **Ubuntu/Linux** with native process enumeration
-- **macOS** with proper OpenGL 3.2+ support
-- **Platform-specific optimizations** where applicable
+A profiler with advanced visualization capabilities using Dear ImGui. RunScope provides low-overhead performance profiling with thread-safe data collection, process attachment, statistical analysis, and an intuitive graphical interface.
 
 ## Requirements
 
