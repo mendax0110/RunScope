@@ -121,6 +121,74 @@ bool Exporter::export_to_chrome_trace(const std::vector<core::ProfileEntry>& ent
 
 bool Exporter::import_from_json(const std::string& filename, std::vector<core::ProfileEntry>& entries)
 {
+    std::ifstream file(filename);
+    if (entries.empty() || filename.empty())
+    {
+        return false;
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string json = buffer.str();
+
     entries.clear();
-    return false;
+
+    size_t pos = json.find("\"entries\"");
+    if (pos == std::string::npos) return false;
+
+    pos = json.find('[', pos);
+    if (pos == std::string::npos) return false;
+
+    while (true)
+    {
+        auto obj_start = json.find('{', pos);
+        auto obj_end = json.find('}', obj_start);
+
+        if (obj_start == std::string::npos || obj_end == std::string::npos)
+        {
+            break;
+        }
+
+        std::string obj = json.substr(obj_start, obj_end - obj_start + 1);
+
+        core::ProfileEntry entry{};
+        entry.name = extract_string(obj, "name");
+        entry.file = extract_string(obj, "file");
+        entry.line = extract_number<int>(obj, "line");
+        entry.start_ns = extract_number<int64_t>(obj, "start_ns");
+        entry.end_ns = extract_number<int64_t>(obj, "end_ns");
+        entry.depth = extract_number<int>(obj, "depth");
+        entry.memory_used = extract_number<size_t>(obj, "memory_used");
+        entry.cpu_usage = extract_number<double>(obj, "cpu_usage");
+
+        std::string tid_str = extract_string(obj, "thread_id");
+        entry.thread_id = std::thread::id();
+
+        entries.push_back(std::move(entry));
+
+        pos = obj_end + 1;
+    }
+
+    return !entries.empty();
+}
+
+std::string Exporter::extract_string(const std::string& src, const std::string& key)
+{
+    const std::string pattern = "\"" + key + "\": \"";
+    auto start = src.find(pattern);
+    if (start == std::string::npos) return {};
+    start += pattern.size();
+    auto end = src.find('\"', start);
+    return src.substr(start, end - start);
+}
+
+template<typename T>
+T Exporter::extract_number(const std::string &src, const std::string &key)
+{
+    const std::string pattern = "\"" + key + "\": ";
+    auto start = src.find(pattern);
+    if (start == std::string::npos) return T{};
+    start += pattern.size();
+    auto end = src.find_first_of(",\n", start);
+    return static_cast<T>(std::stoll(src.substr(start, end - start)));
 }

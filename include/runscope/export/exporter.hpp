@@ -19,6 +19,11 @@ namespace runscope::export_format
 
     private:
         static std::string thread_id_to_string(const core::ThreadId& id);
+
+        static std::string extract_string(const std::string &src, const std::string &key);
+
+        template<typename T>
+        static T extract_number(const std::string& src, const std::string& key);
     };
 }
 
