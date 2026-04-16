@@ -1,5 +1,4 @@
 name: RunScope Build and Tests (Multi-platform)
-
 on:
   push:
     branches: [ "main" ]
@@ -14,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS 15 arm6]
+        os: [ubuntu-latest, macos-15-arm64]
     steps:
       - uses: actions/checkout@v4
 
@@ -25,11 +24,11 @@ jobs:
         run: ./install_deps.sh
 
       - name: Configure CMake
-        run: cmake -B build -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
 
       - name: Build RunScope
-        run: cmake --build build --config ${BUILD_TYPE}
+        run: cmake --build build --config ${{ env.BUILD_TYPE }}
 
       - name: Run tests (CTest)
         working-directory: build
-        run: ctest -C ${BUILD_TYPE} --output-on-failure
+        run: ctest -C ${{ env.BUILD_TYPE }} --output-on-failure
