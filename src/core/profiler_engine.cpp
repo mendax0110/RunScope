@@ -8,7 +8,7 @@ ProfilerEngine& ProfilerEngine::getInstance()
     return engine;
 }
 
-void ProfilerEngine::begin_session(const std::string& name, ProfilerMode mode)
+void ProfilerEngine::begin_session(const std::string& name, const ProfilerMode mode)
 {
     std::lock_guard<std::mutex> lock(mutex_);
     mode_ = mode;
@@ -74,7 +74,7 @@ void ProfilerEngine::clear() const
     }
 }
 
-void ProfilerEngine::set_enabled(bool enabled) noexcept
+void ProfilerEngine::set_enabled(const bool enabled) noexcept
 {
     enabled_.store(enabled, std::memory_order_release);
 }

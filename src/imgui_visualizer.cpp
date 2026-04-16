@@ -1,5 +1,5 @@
 #include "runscope/imgui_visualizer.hpp"
-#include "imgui.h"
+#include <imgui.h>
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
@@ -674,7 +674,7 @@ std::vector<ProfileEntry> ImGuiVisualizer::filter_entries(const std::vector<Prof
     }
     
     std::vector<ProfileEntry> filtered;
-    std::string filter_str(filter_text_);
+    const std::string filter_str(filter_text_);
     
     for (const auto& entry : entries)
     {

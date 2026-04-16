@@ -173,7 +173,7 @@ ProcessInfo ProcessEnumerator::get_process_info(core::ProcessId pid)
 
 #endif
 
-bool ProcessEnumerator::is_process_running(core::ProcessId pid)
+bool ProcessEnumerator::is_process_running(const core::ProcessId pid)
 {
 #ifdef __linux__
     const std::string path = "/proc/" + std::to_string(pid);
@@ -189,7 +189,7 @@ bool ProcessEnumerator::is_process_running(core::ProcessId pid)
 #endif
 }
 
-std::string ProcessEnumerator::get_process_name(core::ProcessId pid)
+std::string ProcessEnumerator::get_process_name(const core::ProcessId pid)
 {
     return get_process_info(pid).name;
 }

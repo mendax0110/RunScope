@@ -39,7 +39,7 @@ std::map<std::string, FunctionStats> StatisticsAnalyzer::get_function_stats() co
     return function_stats_;
 }
 
-std::vector<FunctionStats> StatisticsAnalyzer::get_top_functions(size_t count) const
+std::vector<FunctionStats> StatisticsAnalyzer::get_top_functions(const size_t count) const
 {
     std::vector<FunctionStats> top;
     top.reserve(function_stats_.size());
@@ -62,14 +62,14 @@ std::vector<FunctionStats> StatisticsAnalyzer::get_top_functions(size_t count) c
     return top;
 }
 
-std::vector<FunctionStats> StatisticsAnalyzer::get_hotspots(size_t count) const
+std::vector<FunctionStats> StatisticsAnalyzer::get_hotspots(const size_t count) const
 {
     return get_top_functions(count);
 }
 
 FunctionStats StatisticsAnalyzer::get_stats_for_function(const std::string& name) const
 {
-    auto it = function_stats_.find(name);
+    const auto it = function_stats_.find(name);
     if (it != function_stats_.end())
     {
         return it->second;

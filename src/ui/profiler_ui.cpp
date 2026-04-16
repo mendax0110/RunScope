@@ -303,8 +303,8 @@ void ProfilerUI::show_live_dashboard() const
         unique_threads.insert(entry.thread_id);
     }
     
-    int64_t session_duration = max_end - min_start;
-    double fps = session_duration > 0 ? (1000000000.0 / session_duration) : 0.0;
+    const int64_t session_duration = max_end - min_start;
+    const double fps = session_duration > 0 ? (1000000000.0 / session_duration) : 0.0;
     
     ImGui::Text("Session Duration: %.2f ms", session_duration / 1000000.0);
     ImGui::Text("Total Entries: %zu", entries.size());
@@ -506,15 +506,15 @@ void ProfilerUI::show_flamegraph_view(const std::vector<core::ProfileEntry>& ent
     
     if (total_time == 0) total_time = 1;
     
-    int max_depth = depth_map.empty() ? 0 : depth_map.rbegin()->first;
-    float row_height = std::min(30.0f, canvas_size.y / (max_depth + 1));
+    const int max_depth = depth_map.empty() ? 0 : depth_map.rbegin()->first;
+    const float row_height = std::min(30.0f, canvas_size.y / (max_depth + 1));
 
     for (int depth = max_depth; depth >= 0; --depth)
     {
-        float y_pos = canvas_pos.y + canvas_size.y - (depth + 1) * row_height;
+        const float y_pos = canvas_pos.y + canvas_size.y - (depth + 1) * row_height;
         float x_offset = 0.0f;
         
-        for (size_t idx : depth_map[depth])
+        for (const size_t idx : depth_map[depth])
         {
             const auto& entry = entries[idx];
             

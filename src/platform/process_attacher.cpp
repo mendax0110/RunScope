@@ -130,7 +130,7 @@ public:
     core::ProcessId attached_pid() const noexcept { return attached_pid_; }
     core::AttachmentStatus status() const noexcept { return status_; }
     
-    void set_sample_rate(int rate) { sample_rate_ = rate; }
+    void set_sample_rate(const int rate) { sample_rate_ = rate; }
     int sample_rate() const noexcept { return sample_rate_; }
     
     void start_sampling()
@@ -183,7 +183,7 @@ public:
 private:
     void sampling_loop()
     {
-        auto interval = std::chrono::milliseconds(1000 / sample_rate_);
+        const auto interval = std::chrono::milliseconds(1000 / sample_rate_);
         
         while (sampling_ && attached_)
         {
@@ -405,8 +405,8 @@ private:
         
         //readng the instr ptr..
         #ifdef __x86_64__
-            void* ip = reinterpret_cast<void*>(regs.rip);
-            void* bp = reinterpret_cast<void*>(regs.rbp);
+            const auto ip = reinterpret_cast<void*>(regs.rip);
+            auto bp = reinterpret_cast<void*>(regs.rbp);
         #elif defined(__i386__)
             void* ip = reinterpret_cast<void*>(regs.eip);
             void* bp = reinterpret_cast<void*>(regs.ebp);

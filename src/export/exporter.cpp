@@ -178,7 +178,7 @@ std::string Exporter::extract_string(const std::string& src, const std::string& 
     auto start = src.find(pattern);
     if (start == std::string::npos) return {};
     start += pattern.size();
-    auto end = src.find('\"', start);
+    const auto end = src.find('\"', start);
     return src.substr(start, end - start);
 }
 
@@ -189,6 +189,6 @@ T Exporter::extract_number(const std::string &src, const std::string &key)
     auto start = src.find(pattern);
     if (start == std::string::npos) return T{};
     start += pattern.size();
-    auto end = src.find_first_of(",\n", start);
+    const auto end = src.find_first_of(",\n", start);
     return static_cast<T>(std::stoll(src.substr(start, end - start)));
 }
